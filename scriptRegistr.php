@@ -40,7 +40,7 @@ $query->select(['login'])
     ;
 
 $result = $db->query($query->build())->fetchAll();
-PR($result);
+
 unset($query);
 
 
