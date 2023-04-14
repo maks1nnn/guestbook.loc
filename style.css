@@ -1,0 +1,33 @@
+#forma {
+	text-align: left;
+	font-family: Georgia, Verdana, Geneva, sans-serif;
+	font-size: 16px;
+	border: 1px outset #06540A;
+	padding-left: 10px;
+	width: 500px;
+	margin-left: 50px;
+}
+
+H1{
+	text-align: center;
+	font-family: Georgia, Verdana, Geneva, sans-serif;
+	font-size: 25px;
+	color: #06540A;
+}
+
+#zapici{
+	width:500px; 
+	border:1px outset #06540A; 
+	margin-left:50px;
+	font-family: Georgia, Verdana, Geneva, sans-serif;}
+
+#z1{
+	font-size: 11px;
+	text-align: left;
+	}
+
+#z2{
+	font-size: 14px;
+	font-weight: bold;
+	text-align: left;
+	}
