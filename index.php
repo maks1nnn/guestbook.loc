@@ -1,4 +1,17 @@
 <?php
+session_start();
+if (!empty($_SESSION['login'])) {
+    $name = $_SESSION['login'];
+    unset($_SESSION['login']);
+} else {
+    $name = "";
+}
+if (!empty($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    unset($_SESSION['email']);
+} else {
+    $email = "";
+}
 
 require __DIR__ . '/Classes/Autoloader.php';
 
@@ -24,6 +37,7 @@ $errors = $validator->validateForm();
 
 
 if(!empty($errors)){die(PR ($errors));}*/
+
 $infoComment = '\..\config\dbinfo.php';
 
 $tableName = $db_config['db']['tablename'];
@@ -66,7 +80,7 @@ $recordsPerPage = 10;
 
 $startPozishion = ($currentPage - 1) * $recordsPerPage;
 
-$countPages = $total/$recordsPerPage;
+$countPages = $total / $recordsPerPage;
 
 $query = new SelectQueryBuilder();
 $query->select(['comment', 'name', 'email'])

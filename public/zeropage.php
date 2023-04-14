@@ -9,7 +9,7 @@ use view\formBase\Submit;
 $form = (new Form)->setAttrs(['action' => 'scriptEnter.php', 'method' => 'POST']);
 	
 	echo $form->open();
-		echo (new Input)->setAttr('type', 'text')->setAttr('name', 'userName')->setAttr('placeholder', 'Введите имя ...') . '<br>' . '<br>';
+		echo (new Input)->setAttr('type', 'text')->setAttr('name', 'userName')->setAttr('value', $name)->setAttr('placeholder', 'Введите имя ...') . '<br>' . '<br>';
         echo (new Input)->setAttr('type', 'text')->setAttr('name', 'password')->setAttr('placeholder', 'Введите пароль ...') . '<br>' . '<br>';
 
 		echo new Submit . '<br>' . '<br>';
@@ -18,4 +18,4 @@ $form = (new Form)->setAttrs(['action' => 'scriptEnter.php', 'method' => 'POST']
 
         
 	echo $form->close();
-    //echo "<a href='indexregistr.php'>" . 'Регистрация' . "</a><br>";
+    
