@@ -3,26 +3,26 @@ session_start();
 
 require  '../helpers/Autoloader.php';
 
-require  '../config/dbusers.php';
-
 require  '../helpers/printDebugs.php';
 
 use vendor\Db;
 use vendor\SelectQueryBuilder;
 use vendor\Validator;
+use vendor\Config;
 
-$tableName = $db_config['db']['tablename'];
 
 
+$tableName = new Config('../config/dbinfo.ini');
+$tableName = $tableName->get('tableNameUsers');
 
 
 $username = $_POST['userName'];
 $usernameT = "'" . $username . "'";
 $password = $_POST['password'];
-$infoUsers = '\..\config\dbusers.php';
 
 
-$db = Db::getInstance(); // db connect
+
+$db = Db::getInstance('../config/dbinfo.ini'); // db connect
 
 $query = new SelectQueryBuilder();
 $query->select(['pass'])

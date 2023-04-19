@@ -33,11 +33,11 @@ class Db
   {
   }
 
-  public static function getInstance()
+  public static function getInstance($configFile)
   {
     $subclass = static::class;
 
-    $db_config = new Config();
+    $db_config = new Config($configFile);
 
     $db_config = $db_config->getConfig();
 
@@ -57,7 +57,7 @@ class Db
   {
     try {
 
-      $this->connection = new PDO("mysql:dbname=" . $this->config['db']['dbname'] . ";host=" . $this->config['db']['host'] . ";charset=utf8", $this->config['db']['user'], $this->config['db']['password']);
+      $this->connection = new PDO("mysql:dbname=" . $this->config['dbname'] . ";host=" . $this->config['host'] . ";charset=utf8", $this->config['user'], $this->config['password']);
 
       $this->connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, 0);
     } catch (Exception $e) {

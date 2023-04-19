@@ -17,8 +17,6 @@ require  '../helpers/Autoloader.php';
 
 include  '../view/Front.php';
 
-require  '../config/dbinfo.php';
-
 require  '../helpers/printDebugs.php';
 
 
@@ -26,7 +24,7 @@ use vendor\InsertQueryBuilder;
 use vendor\Db;
 use vendor\SelectQueryBuilder;
 use vendor\Validator;
-
+use vendor\Config;
 
 
 
@@ -38,10 +36,10 @@ if(!empty($errors)){die(PR ($errors));}*/
 
 
 
+$tableName = new Config('../config/dbinfo.ini');
+$tableName = $tableName->get('tableNameComment');
 
-$tableName = 'Gbase';
-
-$db = Db::getInstance(); // db connect
+$db = Db::getInstance('../config/dbinfo.ini'); // db connect
 
 if (!empty($_POST)) {
     $param = ['name' => $_POST['user'], 'email' => $_POST['email'], 'comment' => $_POST['comment']];

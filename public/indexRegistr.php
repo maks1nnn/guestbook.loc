@@ -11,4 +11,5 @@ unset($_SESSION['message']);
 
 
 require  '../helpers/Autoloader.php';
+
 include    '../view/registrPage.php';

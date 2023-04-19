@@ -4,12 +4,10 @@ session_start();
 
 require  '../helpers/Autoloader.php';
 
-require  '../config/dbusers.php';
-
 require  '../helpers/printDebugs.php';
 
 
-use vendor\InsertQueryBuilder;
+use vendor\Config;
 use vendor\Db;
 use vendor\SelectQueryBuilder;
 use vendor\Validator;
@@ -17,9 +15,9 @@ use models\insertUserNameInDb;
 
 
 
-$infoUsers = '\..\config\dbusers.php';
 
-$tableName = $db_config['db']['tablename'];
+$tableName = new Config('../config/dbinfo.ini');
+$tableName = $tableName->get('tableNameUsers');
 
 $username = $_POST['userName'];
 $usernameT = "'" . $username . "'";
@@ -39,7 +37,7 @@ if ($password != $repeatPassword) {
 
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-$db = Db::getInstance(); // db connect
+$db = Db::getInstance('../config/dbinfo.ini'); // db connect
 
 $query = new SelectQueryBuilder();
 $query->select(['login'])

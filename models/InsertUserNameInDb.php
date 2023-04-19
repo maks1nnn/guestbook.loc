@@ -2,6 +2,7 @@
 
 namespace models;
 
+use vendor\Config;
 use vendor\InsertQueryBuilder;
 
 class InsertUserNameInDb
@@ -13,8 +14,10 @@ class InsertUserNameInDb
 
     public function __construct($hashedPassword)
     {
+        $tableName = new Config('../config/dbinfo.ini');
 
-        $this->tableName = 'Users';
+
+        $this->tableName = $tableName->get('tableNameUsers');
         $query = new InsertQueryBuilder();
         $this->param = ['login' => $_POST['userName'], 'email' => $_POST['email'], 'pass' =>  $hashedPassword];
         $this->query = $query->into($this->tableName)->values($this->param);

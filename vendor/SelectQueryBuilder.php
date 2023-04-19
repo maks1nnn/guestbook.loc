@@ -11,7 +11,7 @@ class SelectQueryBuilder
     private $limit;
     private $offset;
     private $params = [];
-    
+
 
     public function select(array $select): self
     {
@@ -28,7 +28,7 @@ class SelectQueryBuilder
     public function where(string $column, string $operator, $value): self
     {
         $this->where[] = "{$column} {$operator}{$value}";
-        
+
         return $this;
     }
 
@@ -43,7 +43,7 @@ class SelectQueryBuilder
         $this->limit = $limit;
         return $this;
     }
-    
+
     public function offset(int $offset): self
     {
         $this->offset = $offset;
@@ -57,7 +57,7 @@ class SelectQueryBuilder
         if (!empty($this->where)) {
             $sql .= " WHERE " . implode(' AND ', $this->where);
         }
-PR($sql);
+
         if (!empty($this->orderBy)) {
             $sql .= " ORDER BY " . implode(', ', $this->orderBy);
         }
