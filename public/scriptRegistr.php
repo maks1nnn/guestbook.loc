@@ -2,17 +2,18 @@
 session_start();
 
 
-require __DIR__ . '/Classes/Autoloader.php';
+require  '../helpers/Autoloader.php';
 
-require __DIR__ . '/config/dbusers.php';
+require  '../config/dbusers.php';
 
-require __DIR__ . '/config/helper.php';
+require  '../helpers/printDebugs.php';
 
 
-use classes\InsertQueryBuilder;
-use classes\Db;
-use classes\SelectQueryBuilder;
-use classes\Validator;
+use vendor\InsertQueryBuilder;
+use vendor\Db;
+use vendor\SelectQueryBuilder;
+use vendor\Validator;
+use models\insertUserNameInDb;
 
 
 
@@ -28,16 +29,17 @@ $repeatPassword = $_POST['repeatpassword'];
 
 
 
-// Проверяем, совпадают ли пароли
+    // Проверяем, совпадают ли пароли
 if ($password != $repeatPassword) {
     // Пароли не совпадают, возвращаем пользователя на страницу формы
     $_SESSION['message'] = 'пароли не совпадают';
-    header("Location: indexregistr.php");
+    header("Location: indexRegistr.php");
     exit;
-}
-$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+} 
 
-$db = Db::getInstance($infoUsers); // db connect
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+$db = Db::getInstance(); // db connect
 
 $query = new SelectQueryBuilder();
 $query->select(['login'])
@@ -50,18 +52,14 @@ unset($query);
 
 if (!empty($result)) {
     $_SESSION['message'] = "Такое имя пользователя уже есть";
-    header("Location: indexregistr.php");
+    header("Location: indexRegistr.php");
     exit;
 } else {
-    $param = ['login' => $_POST['userName'],'email' => $_POST['email'], 'pass' =>  $hashed_password];
-    PR($param);
-    $query = new InsertQueryBuilder();
-    $query->into($tableName)
-        ->values($param);
 
-    $db->query($query->build());
-    unset($query);
+    //PR($param);
+    $query = new insertUserNameInDb($hashedPassword);
+    $query->insert($db);
 }
 $_SESSION['email'] = $email;
 $_SESSION['login'] = $username;
-header("Location: indexenter.php");
+header("Location: index.php");

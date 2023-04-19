@@ -1,6 +1,5 @@
 <?php
 
-
 use view\formBase\Form;
 use view\formBase\Input;
 use view\formBase\Link;
@@ -14,7 +13,7 @@ $form = (new Form)->setAttrs(['action' => 'scriptEnter.php', 'method' => 'POST']
 
 		echo new Submit . '<br>' . '<br>';
 
-        echo (new Link)->setAttr('href', 'indexregistr.php')->setText('Регистрация')->show();
+        echo (new Link)->setAttr('href', '/public/indexregistr.php')->setText('Регистрация')->show();
 
         
 	echo $form->close();

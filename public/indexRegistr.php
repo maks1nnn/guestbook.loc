@@ -1,4 +1,6 @@
 <?php
+
+
 session_start();
 
 if (!empty($_SESSION['message'])) {
@@ -7,7 +9,6 @@ if (!empty($_SESSION['message'])) {
 
 unset($_SESSION['message']);
 
-require __DIR__ . '/Classes/Autoloader.php';
 
-include __DIR__ . '/public/registrpage.php';
-
+require  '../helpers/Autoloader.php';
+include    '../view/registrPage.php';

@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if (!empty($_SESSION['login'])) {
     $name = $_SESSION['login'];
@@ -10,6 +11,7 @@ if (!empty($_SESSION['login'])) {
 if (!empty($_SESSION['message'])) {
     echo '<p class="msg"> ' . $_SESSION['message'] . ' </p>';
 }
-require __DIR__ . '/Classes/Autoloader.php';
 
-include __DIR__ . '/public/zeropage.php';
+require  '../helpers/Autoloader.php';
+
+include   '../view/zeroPage.php';

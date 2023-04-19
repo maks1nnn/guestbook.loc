@@ -1,8 +1,8 @@
 <?php
 
-namespace classes;
+namespace vendor;
 
-use classes\Config;
+use vendor\Config;
 use PDO;
 use Exception;
 
@@ -33,11 +33,11 @@ class Db
   {
   }
 
-  public static function getInstance($info)
+  public static function getInstance()
   {
     $subclass = static::class;
 
-    $db_config = new Config($info);
+    $db_config = new Config();
 
     $db_config = $db_config->getConfig();
 

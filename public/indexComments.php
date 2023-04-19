@@ -13,21 +13,19 @@ if (!empty($_SESSION['email'])) {
     $email = "";
 }
 
-require __DIR__ . '/Classes/Autoloader.php';
+require  '../helpers/Autoloader.php';
 
-include __DIR__ . '/public/Front.php';
+include  '../view/Front.php';
 
-require __DIR__ . '/config/dbinfo.php';
+require  '../config/dbinfo.php';
 
-require __DIR__ . '/config/helper.php';
+require  '../helpers/printDebugs.php';
 
 
-use classes\InsertQueryBuilder;
-use classes\Db;
-use classes\SelectQueryBuilder;
-use classes\Validator;
-use classes\Pagination;
-use classes\Paginator;
+use vendor\InsertQueryBuilder;
+use vendor\Db;
+use vendor\SelectQueryBuilder;
+use vendor\Validator;
 
 
 
@@ -38,13 +36,13 @@ $errors = $validator->validateForm();
 
 if(!empty($errors)){die(PR ($errors));}*/
 
-$infoComment = '\..\config\dbinfo.php';
 
-$tableName = $db_config['db']['tablename'];
 
-$db = Db::getInstance($infoComment); // db connect
-//PR($_POST);
-//PR($tableName);
+
+$tableName = 'Gbase';
+
+$db = Db::getInstance(); // db connect
+
 if (!empty($_POST)) {
     $param = ['name' => $_POST['user'], 'email' => $_POST['email'], 'comment' => $_POST['comment']];
 
@@ -66,11 +64,10 @@ $query->select(['comment', 'name', 'email'])
     ->orderBy('id');
 
 $result = $db->query($query->build())->fetchAll();
-//PR($db->query($query->build())->fetchAll());
 $total = count($result);
 unset($query);
 
-echo $total;
+
 
 
 // задаю стартовый гет
@@ -99,48 +96,3 @@ foreach ($result as $name) {
 for ($i = 1; $i < $countPages; $i++) {
     echo "<a href='?page=$i'>" . $i . "</a><br>";
 }
-
-
-
-/*foreach ($result as $name){
-    echo "{$name['name']}{$name['comment']}{$name['email']}<br>";
-}*/
-
-
-
-/*$url = $_SERVER['REQUEST_URI'];
-$url = explode('?', $url);
-$uri = $url[0];
-PR ($url);*/
-
-
-
-
- //PR($db->query($query->build())->fetchAll());
-
-
-
-/*$page= $_GET['page'] ?? 1;
-$perpage = 10;
-$total = count($result);
-$pagination = new Pagination($page, $perpage, $total);
-$start = $pagination->get_start();
-$query = new SelectQueryBuilder();
-$query->select(['comment', 'name','email'])
-    ->from($tableName)
-    
-    ->orderBy('id')
-    ->limit($perpage)
-    ;
-
- $result = $db->query($query->build())->fetchAll();
- //PR($db->query($query->build())->fetchAll());
-
-unset($query);
-
-
-
-foreach ($result as $name){
-    echo "{$name['name']}{$name['comment']}{$name['email']}<br>";
-}
-echo $pagination->getHtml();*/

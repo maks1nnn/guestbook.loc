@@ -1,14 +1,14 @@
 <?php
 
-namespace classes;
+namespace vendor;
 
 class Config
 {
     private $config;
 
-    public function __construct($info)
+    public function __construct()
     {
-        $this->config = include __DIR__ . $info; 
+        $this->config = include  '../config/dbinfo.php'; 
     }
 
     public function getConfig()

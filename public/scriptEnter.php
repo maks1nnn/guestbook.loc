@@ -1,15 +1,15 @@
 <?php
 session_start();
 
-require __DIR__ . '/Classes/Autoloader.php';
+require  '../helpers/Autoloader.php';
 
-require __DIR__ . '/config/dbusers.php';
+require  '../config/dbusers.php';
 
-require __DIR__ . '/config/helper.php';
+require  '../helpers/printDebugs.php';
 
-use classes\Db;
-use classes\SelectQueryBuilder;
-use classes\Validator;
+use vendor\Db;
+use vendor\SelectQueryBuilder;
+use vendor\Validator;
 
 $tableName = $db_config['db']['tablename'];
 
@@ -22,7 +22,7 @@ $password = $_POST['password'];
 $infoUsers = '\..\config\dbusers.php';
 
 
-$db = Db::getInstance($infoUsers); // db connect
+$db = Db::getInstance(); // db connect
 
 $query = new SelectQueryBuilder();
 $query->select(['pass'])
@@ -38,14 +38,14 @@ unset($query);
 
 if (!empty($rezult)) {
     $_SESSION['message'] = "Пользователь не найден.";
-    header("Location: indexenter.php");
+    header("Location: indexEnter.php");
 
     exit;
 }
 // Проверка пароля
 if (!password_verify($password, $result['pass'])) {
     $_SESSION['message'] = "Неправильный пароль.";
-    header("Location: indexenter.php");
+    header("Location: indexEnter.php");
 
     exit;
 }
@@ -53,5 +53,5 @@ if (!password_verify($password, $result['pass'])) {
 
 $_SESSION['login'] = $username;
 
-header("Location: index.php");
+header("Location: indexComments.php");
 
